@@ -15,12 +15,15 @@ class MyApp extends StatelessWidget {
           appBar: AppBar(
             title: Text('When Urine Trouble'),
           ),
-          body: MyHomePage()),
+          body: MyBody()),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+//can't put MyBody directly into the body of MyApp. This is due to a weird
+//issue where the context in builder. Specifically context does not contain a
+//Navigator
+class MyBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

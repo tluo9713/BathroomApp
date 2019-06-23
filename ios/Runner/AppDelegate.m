@@ -2,13 +2,14 @@
 #include "GeneratedPluginRegistrant.h"
 #import "GoogleMaps/GoogleMaps.h"
 
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application
     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   [GeneratedPluginRegistrant registerWithRegistry:self];
   // Override point for customization after application launch.
-  [GMSServices provideAPIKey: @"AIzaSyCm3GkrQWPQbkBuf_UJebHWk0hM4011H3M"];
+  [GMSServices provideAPIKey: @"AIzaSyBO3afdbAvakqQQmhFXiPSQ-5q7rLwBvis"];
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
