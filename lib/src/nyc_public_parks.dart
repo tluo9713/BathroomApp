@@ -5,87 +5,44 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'locations.g.dart';
 
+// @JsonSerializable()
+// class LatLng {
+//   LatLng({
+//     this.lat,
+//     this.lng,
+//   });
+
+//   factory LatLng.fromJson(Map<String, dynamic> json) => _$LatLngFromJson(json);
+//   Map<String, dynamic> toJson() => _$LatLngToJson(this);
+
+//   final double lat;
+//   final double lng;
+// }
+
 @JsonSerializable()
-class LatLng {
-  LatLng({
-    this.lat,
-    this.lng,
-  });
+class Bathroom {
+  Bathroom({this.name, this.location, this.open_year_round, this.borough});
 
-  factory LatLng.fromJson(Map<String, dynamic> json) => _$LatLngFromJson(json);
-  Map<String, dynamic> toJson() => _$LatLngToJson(this);
+  factory Bathroom.fromJson(Map<String, dynamic> json) =>
+      _$BathroomFromJson(json);
+  Map<String, dynamic> toJson() => _$BathroomToJson(this);
 
-  final double lat;
-  final double lng;
-}
-
-@JsonSerializable()
-class Region {
-  Region({
-    this.coords,
-    this.id,
-    this.name,
-    this.zoom,
-  });
-
-  factory Region.fromJson(Map<String, dynamic> json) => _$RegionFromJson(json);
-  Map<String, dynamic> toJson() => _$RegionToJson(this);
-
-  final LatLng coords;
-  final String id;
   final String name;
-  final double zoom;
+  final String location;
+  final String open_year_round;
+  //final double lat;
+  //final double lng;
+  final String borough;
 }
 
-@JsonSerializable()
-class Office {
-  Office({
-    this.address,
-    this.id,
-    this.image,
-    this.lat,
-    this.lng,
-    this.name,
-    this.phone,
-    this.region,
-  });
-
-  factory Office.fromJson(Map<String, dynamic> json) => _$OfficeFromJson(json);
-  Map<String, dynamic> toJson() => _$OfficeToJson(this);
-
-  final String address;
-  final String id;
-  final String image;
-  final double lat;
-  final double lng;
-  final String name;
-  final String phone;
-  final String region;
-}
-
-@JsonSerializable()
-class Locations {
-  Locations({
-    this.offices,
-    this.regions,
-  });
-
-  factory Locations.fromJson(Map<String, dynamic> json) =>
-      _$LocationsFromJson(json);
-  Map<String, dynamic> toJson() => _$LocationsToJson(this);
-
-  final List<Office> offices;
-  final List<Region> regions;
-}
-
-Future<Locations> getNYCPublicBathroom() async {
+Future<Bathrooms> getNYCPublicBathroom() async {
   const nycPublicBathroom =
       'https://data.cityofnewyork.us/resource/hjae-yuav.json';
   //print(nycPublicBathroom[0]);
   // Retrieve the locations of Google offices
   final response = await http.get(nycPublicBathroom);
   if (response.statusCode == 200) {
-    return Locations.fromJson(json.decode(response.body));
+    return Bathrooms.fromJson(json.decode(response.body));
   } else {
     throw HttpException(
         'Unexpected status code ${response.statusCode}:'
