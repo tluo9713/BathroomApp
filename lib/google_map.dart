@@ -19,10 +19,13 @@ class _GoogleMapState extends State<GoogleMapWidget> {
   Future<void> _fetchNearestBathroom(GoogleMapController controller) async {
     final nearestBathrooms =
         await locations.getNearestBathroom(bathroomCountController.text);
-    print('hey ${bathroomCountController.text}');
     setState(() {
       _markers.clear();
       for (final bathroom in nearestBathrooms) {
+        String directions = 'N/A';
+        if (bathroom['directions'] != null) {
+          directions = bathroom['directions'];
+        }
         final marker = Marker(
           markerId: MarkerId(bathroom['id'].toString()),
           position: LatLng(bathroom['latitude'], bathroom['longitude']),
@@ -32,7 +35,9 @@ class _GoogleMapState extends State<GoogleMapWidget> {
                   '\n' +
                   'Current distance away: ' +
                   bathroom['distance'].toString() +
-                  'meters'),
+                  'meters' +
+                  '\n Directions:' +
+                  directions),
         );
         _markers[bathroom['name']] = marker;
       }

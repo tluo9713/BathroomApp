@@ -42,10 +42,8 @@ Future getNearestBathroom(String count) async {
     for (final bathroom in nearestBathrooms) {
       final endLat = bathroom['latitude'];
       final endLng = bathroom['longitude'];
-
       double distanceInMeters = await Geolocator().distanceBetween(
           double.parse(lat), double.parse(lng), endLat, endLng);
-
       bathroom['distance'] = distanceInMeters.round();
     }
     return nearestBathrooms;
